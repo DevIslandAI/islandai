@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
@@ -10,8 +10,18 @@ import CursorEffect from "@/components/CursorEffect";
 
 const Index = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    // Scroll progress indicator
+    const handleScroll = () => {
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = (window.pageYOffset / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     // Intersection Observer for fade-in animations
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -24,32 +34,56 @@ const Index = () => {
       { threshold: 0.1 }
     );
 
-    // Select all sections to animate
+    // Select all sections and elements to animate
     const sections = document.querySelectorAll("section");
     sections.forEach((section) => {
       section.classList.add("section-fade-in");
       observerRef.current?.observe(section);
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const href = this.getAttribute("href");
-        if (href) {
-          const targetElement = document.querySelector(href);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: "smooth",
-            });
-          }
-        }
-      });
+    // Animate individual elements with staggered delay
+    const animatedElements = document.querySelectorAll(".animate-on-scroll");
+    animatedElements.forEach((el, index) => {
+      el.classList.add("element-fade-in");
+      (el as HTMLElement).style.animationDelay = `${index * 0.1}s`;
+      observerRef.current?.observe(el);
     });
+
+    // Add floating particles
+    const particleContainer = document.createElement('div');
+    particleContainer.className = 'fixed inset-0 pointer-events-none z-0';
+    document.body.appendChild(particleContainer);
+
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      const size = Math.random() * 10 + 5;
+      
+      particle.className = 'absolute rounded-full';
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.background = i % 2 === 0 
+        ? 'linear-gradient(to bottom right, rgba(155, 135, 245, 0.3), rgba(14, 165, 233, 0.2))'
+        : 'linear-gradient(to bottom right, rgba(14, 165, 233, 0.2), rgba(155, 135, 245, 0.3))';
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      particle.style.filter = 'blur(1px)';
+      particle.style.opacity = (Math.random() * 0.5 + 0.1).toString();
+      particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particle.style.animationIterationCount = 'infinite';
+      particle.style.animationName = 'float';
+      particle.style.animationTimingFunction = 'ease-in-out';
+      
+      particleContainer.appendChild(particle);
+    }
 
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
+      }
+      window.removeEventListener("scroll", handleScroll);
+      if (particleContainer.parentNode) {
+        document.body.removeChild(particleContainer);
       }
     };
   }, []);
@@ -58,6 +92,10 @@ const Index = () => {
     <div className="flex flex-col min-h-screen">
       <CursorEffect />
       <Header />
+      
+      {/* Scroll Progress Indicator */}
+      <div className="fixed top-0 left-0 h-1 bg-gradient-to-r from-islandai-purple to-islandai-blue z-50" style={{ width: `${scrollProgress}%` }} />
+      
       <main>
         <HeroSection />
         <ProductsSection />

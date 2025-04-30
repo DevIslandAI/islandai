@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 type NavItem = {
   name: string;
@@ -34,6 +35,20 @@ export default function Header() {
     };
   }, []);
 
+  const handleNavItemClick = (href: string) => {
+    setMobileMenuOpen(false);
+    
+    if (href.startsWith('#')) {
+      // Wait for the DOM to update after closing mobile menu
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -44,10 +59,10 @@ export default function Header() {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg"></div>
+        <Link to="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+          <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg animate-pulse-light"></div>
           <span className="font-bold text-xl">Island AI</span>
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
@@ -55,7 +70,13 @@ export default function Header() {
             <a
               key={item.name}
               href={item.href}
-              className="text-sm font-medium hover:text-islandai-purple transition-colors"
+              className="text-sm font-medium hover:text-islandai-purple transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+              onClick={(e) => {
+                if (item.href.startsWith('#')) {
+                  e.preventDefault();
+                  handleNavItemClick(item.href);
+                }
+              }}
             >
               {item.name}
             </a>
@@ -66,13 +87,15 @@ export default function Header() {
         <button
           className="md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 transition-transform duration-300"
+            style={{ transform: mobileMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}
           >
             <path
               strokeLinecap="round"
@@ -86,13 +109,18 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <nav className="md:hidden bg-white shadow-lg absolute left-0 right-0 top-16 p-4 flex flex-col space-y-4">
+        <nav className="md:hidden bg-white shadow-lg absolute left-0 right-0 top-16 p-4 flex flex-col space-y-4 animate-fade-in">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
               className="text-base font-medium hover:text-islandai-purple transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                if (item.href.startsWith('#')) {
+                  e.preventDefault();
+                  handleNavItemClick(item.href);
+                }
+              }}
             >
               {item.name}
             </a>

@@ -45,24 +45,59 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    cursor: none;
   }
 
+  /* For devices that can't use custom cursors (mobile devices) */
+  @media (max-width: 768px) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  /* Custom Cursor */
   .custom-cursor {
     height: 32px;
     width: 32px;
     background-color: rgba(155, 135, 245, 0.15);
+    border: 2px solid rgba(155, 135, 245, 0.3);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
   }
   
+  .custom-cursor.clicking {
+    transform: scale(0.8);
+    background-color: rgba(14, 165, 233, 0.3);
+    border-color: rgba(14, 165, 233, 0.5);
+  }
+  
+  .custom-cursor.hovering {
+    transform: scale(1.5);
+    background-color: rgba(155, 135, 245, 0.25);
+    border-color: rgba(155, 135, 245, 0.5);
+  }
+  
+  /* Cursor trail effect */
+  .cursor-trail {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    background-color: rgba(155, 135, 245, 0.1);
+    mix-blend-mode: difference;
+    z-index: 9998;
+    transition: transform 0.1s linear;
+  }
+
+  /* Text gradient */
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-islandai-purple to-islandai-blue;
   }
 
+  /* Section animations */
   .section-fade-in {
     @apply opacity-0 translate-y-10 transition-all duration-1000;
   }
@@ -70,9 +105,59 @@
   .section-fade-in.appear {
     @apply opacity-100 translate-y-0;
   }
-
+  
+  /* Element animations */
+  .element-fade-in {
+    @apply opacity-0 translate-y-5 transition-all duration-700;
+  }
+  
+  .element-fade-in.appear {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  /* Product card animations */
   .product-card {
     @apply backdrop-blur-sm bg-white/30 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden hover:-translate-y-1;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  }
+  
+  /* Add support for animation delays */
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+  
+  .animation-delay-1500 {
+    animation-delay: 1500ms;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
+  }
+}
+
+/* Fade in animation for header/footer */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUpMd {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

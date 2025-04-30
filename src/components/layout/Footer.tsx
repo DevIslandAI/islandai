@@ -7,52 +7,80 @@ export default function Footer() {
     <footer className="bg-gray-50 py-12 mt-20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg"></div>
+          <div className="animate-fade-in">
+            <Link to="/" className="flex items-center gap-2 mb-4 group">
+              <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg group-hover:scale-110 transition-transform"></div>
               <span className="font-bold text-xl">Island AI</span>
-            </div>
+            </Link>
             <p className="text-gray-600 text-sm mt-2 max-w-xs">
               Providing Automations and AI Agents to companies to save on time and resources.
             </p>
           </div>
 
-          <div>
+          <div className="animate-fade-in" style={{ animationDelay: "100ms" }}>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#home" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <a 
+                  href="#home" 
+                  className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Home
                 </a>
               </li>
               <li>
-                <a href="#products" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <a 
+                  href="#products" 
+                  className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Products
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <a 
+                  href="#about" 
+                  className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <a 
+                  href="#contact" 
+                  className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Contact Us
                 </a>
               </li>
             </ul>
           </div>
 
-          <div>
+          <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
             <h3 className="font-semibold text-lg mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/terms" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <Link to="/terms" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm">
+                <Link to="/privacy" className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                   Privacy Policy
                 </Link>
               </li>
@@ -61,13 +89,13 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-200 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 animate-fade-in" style={{ animationDelay: "300ms" }}>
             &copy; {new Date().getFullYear()} Island AI. All rights reserved.
           </p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex space-x-4 mt-4 md:mt-0 animate-fade-in" style={{ animationDelay: "400ms" }}>
             <a
               href="#"
-              className="text-gray-500 hover:text-islandai-purple transition-colors"
+              className="text-gray-500 hover:text-islandai-purple transition-colors hover:scale-110 transform duration-300"
               aria-label="LinkedIn"
             >
               <svg
@@ -81,7 +109,7 @@ export default function Footer() {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-islandai-purple transition-colors"
+              className="text-gray-500 hover:text-islandai-purple transition-colors hover:scale-110 transform duration-300"
               aria-label="Twitter"
             >
               <svg
