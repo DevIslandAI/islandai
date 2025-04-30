@@ -55,14 +55,7 @@ export default function ProductsSection() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {product.tags.map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary" className="bg-islandai-purple/10 text-islandai-purple-dark">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                <p className="text-gray-600">{product.description}</p>
               </div>
             </div>
           ))}

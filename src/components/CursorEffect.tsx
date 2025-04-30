@@ -34,18 +34,22 @@ export default function CursorEffect() {
       const newPosition = { x: e.clientX, y: e.clientY };
       setPosition(newPosition);
       
-      // Update main cursor
-      cursor.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px) scale(${clicking ? 0.8 : hovering ? 1.5 : 1})`;
+      // Update main cursor with proper positioning
+      cursor.style.left = `${e.clientX - 16}px`;
+      cursor.style.top = `${e.clientY - 16}px`;
+      cursor.style.transform = `scale(${clicking ? 0.8 : hovering ? 1.5 : 1})`;
       
       // Update position history
       positions.unshift(newPosition);
       positions.pop();
       
-      // Update trail positions with delay
+      // Update trail positions with explicit positioning
       trailElements.forEach((trail, index) => {
         const pos = positions[Math.min(index, positions.length - 1)];
         if (pos) {
-          trail.style.transform = `translate(${pos.x - (12 - index * 1.5)}px, ${pos.y - (12 - index * 1.5)}px)`;
+          const size = 12 - index * 1.5;
+          trail.style.left = `${pos.x - size}px`;
+          trail.style.top = `${pos.y - size}px`;
         }
       });
     };
