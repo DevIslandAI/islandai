@@ -49,30 +49,31 @@ const Index = () => {
       observerRef.current?.observe(el);
     });
 
-    // Add floating particles
+    // Add floating particles with reduced visibility
     const particleContainer = document.createElement('div');
     particleContainer.className = 'fixed inset-0 pointer-events-none z-0';
     document.body.appendChild(particleContainer);
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) { // Reduced from 20 to 10 particles
       const particle = document.createElement('div');
-      const size = Math.random() * 10 + 5;
+      const size = Math.random() * 6 + 3; // Reduced size from 10+5 to 6+3
       
       particle.className = 'absolute rounded-full';
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
       particle.style.background = i % 2 === 0 
-        ? 'linear-gradient(to bottom right, rgba(155, 135, 245, 0.3), rgba(14, 165, 233, 0.2))'
-        : 'linear-gradient(to bottom right, rgba(14, 165, 233, 0.2), rgba(155, 135, 245, 0.3))';
+        ? 'linear-gradient(to bottom right, rgba(155, 135, 245, 0.15), rgba(14, 165, 233, 0.1))' // Reduced opacity
+        : 'linear-gradient(to bottom right, rgba(14, 165, 233, 0.1), rgba(155, 135, 245, 0.15))'; // Reduced opacity
       particle.style.left = `${Math.random() * 100}vw`;
       particle.style.top = `${Math.random() * 100}vh`;
-      particle.style.filter = 'blur(1px)';
-      particle.style.opacity = (Math.random() * 0.5 + 0.1).toString();
-      particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      particle.style.filter = 'blur(2px)'; // Increased blur for subtlety
+      particle.style.opacity = (Math.random() * 0.2 + 0.05).toString(); // Significantly reduced opacity
+      particle.style.animationDuration = `${Math.random() * 30 + 15}s`; // Slowed down animation
       particle.style.animationDelay = `${Math.random() * 5}s`;
       particle.style.animationIterationCount = 'infinite';
       particle.style.animationName = 'float';
       particle.style.animationTimingFunction = 'ease-in-out';
+      particle.style.zIndex = '-1'; // Place bubbles behind content
       
       particleContainer.appendChild(particle);
     }

@@ -1,12 +1,17 @@
 
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function CursorEffect() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [clicking, setClicking] = useState(false);
   const [hovering, setHovering] = useState(false);
-
+  const isMobile = useIsMobile();
+  
   useEffect(() => {
+    // Don't create cursor effects on mobile devices
+    if (isMobile) return;
+    
     // Main cursor
     const cursor = document.createElement("div");
     cursor.classList.add("custom-cursor");
@@ -110,7 +115,7 @@ export default function CursorEffect() {
         }
       });
     };
-  }, [clicking, hovering]);
+  }, [clicking, hovering, isMobile]);
 
   return null;
 }

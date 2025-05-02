@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -44,13 +45,22 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    cursor: none;
   }
 
-  /* For devices that can't use custom cursors (mobile devices) */
+  /* For desktop devices (show custom cursor) */
+  @media (min-width: 769px) {
+    body {
+      cursor: none;
+    }
+  }
+
+  /* For mobile devices (use default cursor) */
   @media (max-width: 768px) {
     body {
       cursor: auto;
+    }
+    .custom-cursor, .cursor-trail {
+      display: none !important;
     }
   }
 
@@ -67,6 +77,8 @@
     left: 0;
     top: 0;
     transition: transform 0.2s ease;
+    display: block;
+    visibility: visible;
   }
   
   .custom-cursor.clicking {
@@ -90,6 +102,8 @@
     left: 0;
     top: 0;
     z-index: 9998;
+    display: block;
+    visibility: visible;
   }
 
   /* Text gradient */
