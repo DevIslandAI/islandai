@@ -1,7 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Settings, Bot, Mail } from "lucide-react";
+import { Settings, Bot, GraduationCap } from "lucide-react";
 
 type Service = {
   title: string;
@@ -21,9 +21,9 @@ const services: Service[] = [
     icon: <Bot className="w-12 h-12 text-islandai-blue" />
   },
   {
-    title: "Get in Touch",
-    description: "Let's collaborate to bring your AI vision to life. Our team of experts is ready to discuss your unique challenges and craft innovative solutions that drive real business value.",
-    icon: <Mail className="w-12 h-12 text-islandai-purple-dark" />
+    title: "AI Formation",
+    description: "Learn the art and science of AI through our comprehensive training programs. We teach individuals and teams how to leverage AI tools, create custom automations, and implement AI solutions in their workflows.",
+    icon: <GraduationCap className="w-12 h-12 text-islandai-purple-dark" />
   }
 ];
 
