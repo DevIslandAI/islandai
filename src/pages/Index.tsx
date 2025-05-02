@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import ProductsSection from "@/components/home/ProductsSection";
+import ServicesSection from "@/components/home/ServicesSection";
 import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
 import CursorEffect from "@/components/CursorEffect";
@@ -100,6 +101,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <ProductsSection />
+        <ServicesSection />
         <AboutSection />
         <ContactSection />
       </main>
