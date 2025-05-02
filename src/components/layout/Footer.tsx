@@ -9,7 +9,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="animate-fade-in">
             <Link to="/" className="flex items-center gap-2 mb-4 group">
-              <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg group-hover:scale-110 transition-transform"></div>
+              <img 
+                src="/lovable-uploads/1e868471-38a3-4dd3-8249-93196c7b4a6d.png" 
+                alt="Island AI Logo" 
+                className="w-8 h-8 rounded-lg group-hover:scale-110 transition-transform"
+              />
               <span className="font-bold text-xl">Island AI</span>
             </Link>
             <p className="text-gray-600 text-sm mt-2 max-w-xs">

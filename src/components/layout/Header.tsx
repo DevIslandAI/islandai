@@ -60,7 +60,11 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-          <div className="w-8 h-8 bg-gradient-to-br from-islandai-purple to-islandai-blue rounded-lg animate-pulse-light"></div>
+          <img 
+            src="/lovable-uploads/1e868471-38a3-4dd3-8249-93196c7b4a6d.png" 
+            alt="Island AI Logo" 
+            className="w-8 h-8 rounded-lg"
+          />
           <span className="font-bold text-xl">Island AI</span>
         </Link>
 

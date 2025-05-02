@@ -6,27 +6,23 @@ type Product = {
   title: string;
   description: string;
   imageUrl: string;
-  tags: string[];
 };
 
 const products: Product[] = [
   {
     title: "Voiceflow Analytics Dashboard",
     description: "A comprehensive analytics dashboard for your Voiceflow agents, providing insights into user interactions and performance metrics.",
-    imageUrl: "/placeholder.svg",
-    tags: ["Analytics", "Voiceflow", "Dashboard"]
+    imageUrl: "/placeholder.svg"
   },
   {
     title: "Laws.mu",
     description: "The first Legal AI Assistant in Mauritius, providing legal information and guidance to businesses and individuals.",
-    imageUrl: "/placeholder.svg",
-    tags: ["Legal", "AI Assistant", "Mauritius"]
+    imageUrl: "/placeholder.svg"
   },
   {
     title: "Email Drafter",
     description: "An AI-powered tool that drafts email replies for you, saving time and ensuring professional communication.",
-    imageUrl: "/placeholder.svg",
-    tags: ["Email", "Productivity", "AI Writing"]
+    imageUrl: "/placeholder.svg"
   }
 ];
 
