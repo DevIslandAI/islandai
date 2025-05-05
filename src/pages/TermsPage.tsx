@@ -4,9 +4,9 @@ import Footer from "@/components/layout/Footer";
 
 const TermsPage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       <Header />
-      <main className="flex-grow pt-32 pb-20">
+      <main className="flex-grow pt-32 pb-20 relative z-10">
         <div className="container mx-auto px-4 md:px-6">
           <h1 className="text-3xl md:text-4xl font-bold mb-8 gradient-text inline-block">Terms and Conditions</h1>
           
