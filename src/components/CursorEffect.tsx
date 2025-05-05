@@ -17,6 +17,10 @@ export default function CursorEffect() {
     cursor.classList.add("custom-cursor");
     document.body.appendChild(cursor);
 
+    // Set initial position to center of viewport
+    cursor.style.left = `${window.innerWidth / 2 - 16}px`;
+    cursor.style.top = `${window.innerHeight / 2 - 16}px`;
+
     // Trail effect
     const trailElements = [];
     const trailCount = 5;
@@ -82,6 +86,13 @@ export default function CursorEffect() {
       setHovering(false);
       cursor.classList.remove("hovering");
     };
+
+    // Force an initial mousemove event to make the cursor visible
+    // This ensures the cursor is visible on page load without requiring movement
+    document.dispatchEvent(new MouseEvent('mousemove', {
+      clientX: window.innerWidth / 2,
+      clientY: window.innerHeight / 2
+    }));
 
     // Add event listeners
     window.addEventListener("mousemove", updateCursorPosition);
