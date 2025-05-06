@@ -61,7 +61,7 @@ const PrivacyPage = () => {
             
             <hr className="my-6" />
             
-            <h2 className="text-2xl font-semibold mt-8 mb-4">3. Legal Basis for Processing (if applicable under GDPR)</h2>
+            <h2 className="text-2xl font-semibold mt-8 mb-4">3. Legal Basis for Processing</h2>
             
             <p>
               If you are located in the European Economic Area (EEA), we process your personal information under the following legal bases:
