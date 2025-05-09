@@ -1,10 +1,12 @@
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CursorEffect from "@/components/CursorEffect";
 
 const PrivacyPage = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
+      <CursorEffect />
       <Header />
       <main className="flex-grow pt-32 pb-20 relative z-10">
         <div className="container mx-auto px-4 md:px-6">
