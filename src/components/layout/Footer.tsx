@@ -1,8 +1,24 @@
 
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const isHomePage = location.pathname === "/";
+    
+    if (!isHomePage) {
+      // Navigate to home page first, then scroll after page load
+      navigate("/", { state: { scrollTo: sectionId } });
+    } else {
+      // Already on home page, just scroll
+      document.querySelector(`#${sectionId}`)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-gray-50 py-12 mt-20">
       <div className="container mx-auto px-4 md:px-6">
@@ -28,10 +44,7 @@ export default function Footer() {
                 <a 
                   href="#home" 
                   className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={(e) => handleNavClick(e, 'home')}
                 >
                   Home
                 </a>
@@ -40,10 +53,7 @@ export default function Footer() {
                 <a 
                   href="#products" 
                   className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={(e) => handleNavClick(e, 'products')}
                 >
                   Products
                 </a>
@@ -52,10 +62,7 @@ export default function Footer() {
                 <a 
                   href="#about" 
                   className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={(e) => handleNavClick(e, 'about')}
                 >
                   About Us
                 </a>
@@ -64,10 +71,7 @@ export default function Footer() {
                 <a 
                   href="#contact" 
                   className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={(e) => handleNavClick(e, 'contact')}
                 >
                   Contact Us
                 </a>

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 type NavItem = {
   name: string;
@@ -19,6 +19,8 @@ const navItems: NavItem[] = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,15 +41,34 @@ export default function Header() {
     setMobileMenuOpen(false);
     
     if (href.startsWith('#')) {
-      // Wait for the DOM to update after closing mobile menu
-      setTimeout(() => {
+      const isHomePage = location.pathname === "/";
+      
+      if (!isHomePage) {
+        // Navigate to home page first, then scroll after page load
+        navigate("/", { state: { scrollTo: href.substring(1) } });
+      } else {
+        // Already on home page, just scroll
         const element = document.querySelector(href);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
-      }, 100);
+      }
     }
   };
+
+  // Check for scroll target from navigation
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      setTimeout(() => {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          // Clear the state to prevent scrolling on subsequent renders
+          window.history.replaceState({}, document.title);
+        }
+      }, 100);
+    }
+  }, [location.state]);
 
   return (
     <header
@@ -76,10 +97,8 @@ export default function Header() {
               href={item.href}
               className="text-sm font-medium hover:text-islandai-purple transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
               onClick={(e) => {
-                if (item.href.startsWith('#')) {
-                  e.preventDefault();
-                  handleNavItemClick(item.href);
-                }
+                e.preventDefault();
+                handleNavItemClick(item.href);
               }}
             >
               {item.name}
@@ -120,10 +139,8 @@ export default function Header() {
               href={item.href}
               className="text-base font-medium hover:text-islandai-purple transition-colors"
               onClick={(e) => {
-                if (item.href.startsWith('#')) {
-                  e.preventDefault();
-                  handleNavItemClick(item.href);
-                }
+                e.preventDefault();
+                handleNavItemClick(item.href);
               }}
             >
               {item.name}
