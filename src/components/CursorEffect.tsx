@@ -12,6 +12,7 @@ export default function CursorEffect() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const trailElementsRef = useRef<HTMLDivElement[]>([]);
   const positionsRef = useRef<{ x: number; y: number }[]>([]);
+  const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   useEffect(() => {
     // Don't create cursor effects on mobile devices
@@ -51,6 +52,17 @@ export default function CursorEffect() {
     const updateCursorPosition = (e: MouseEvent) => {
       const newPosition = { x: e.clientX, y: e.clientY };
       setPosition(newPosition);
+      
+      // Clear any existing timeout
+      if (moveTimeoutRef.current) {
+        clearTimeout(moveTimeoutRef.current);
+      }
+      
+      // Set a timeout to detect when mouse stops moving
+      moveTimeoutRef.current = setTimeout(() => {
+        setHovering(false);
+        if (cursor) cursor.classList.remove("hovering");
+      }, 150); // Reset hover state after 150ms of no movement
       
       // Update main cursor position immediately
       if (cursor && document.body.contains(cursor)) {
@@ -121,6 +133,11 @@ export default function CursorEffect() {
     document.addEventListener('mouseout', handleMouseLeave);
 
     return () => {
+      // Clear timeout on cleanup
+      if (moveTimeoutRef.current) {
+        clearTimeout(moveTimeoutRef.current);
+      }
+      
       // Cleanup
       window.removeEventListener("mousemove", updateCursorPosition);
       window.removeEventListener("mousedown", handleMouseDown);
