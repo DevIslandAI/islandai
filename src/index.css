@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -39,64 +40,12 @@
 
   * {
     @apply border-border;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="%23000" opacity="0.7"/></svg>') 16 16, auto;
   }
 
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  /* For desktop devices (show custom cursor) */
-  @media (min-width: 769px) {
-    body {
-      cursor: none;
-    }
-  }
-
-  /* For mobile devices (use default cursor) */
-  @media (max-width: 768px) {
-    body {
-      cursor: auto;
-    }
-    .custom-cursor, .cursor-trail {
-      display: none !important;
-    }
-  }
-
-  /* Custom Cursor */
-  .custom-cursor {
-    height: 32px;
-    width: 32px;
-    background-color: rgba(155, 135, 245, 0.3);
-    border: 2px solid rgba(155, 135, 245, 0.6);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 99999;
-    transform-origin: center;
-    transition: transform 0.15s ease-out, background-color 0.15s ease-out, border-color 0.15s ease-out;
-    will-change: transform;
-  }
-  
-  .custom-cursor.clicking {
-    background-color: rgba(14, 165, 233, 0.3);
-    border-color: rgba(14, 165, 233, 0.5);
-  }
-  
-  .custom-cursor.hovering {
-    background-color: rgba(155, 135, 245, 0.25);
-    border-color: rgba(155, 135, 245, 0.5);
-  }
-  
-  /* Cursor trail effect */
-  .cursor-trail {
-    position: fixed;
-    pointer-events: none;
-    border-radius: 50%;
-    background-color: rgba(155, 135, 245, 0.2);
-    z-index: 99998;
-    transition: opacity 0.1s ease-out;
-    will-change: transform;
   }
 
   /* Text gradient */
