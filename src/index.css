@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -72,24 +73,18 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 99999; /* Increased z-index to ensure it's above everything */
-    left: 0;
-    top: 0;
-    transition: transform 0.2s ease;
-    display: block;
-    visibility: visible;
-    /* Ensure cursor is visible even without movement */
-    opacity: 1;
+    z-index: 99999;
+    transform-origin: center;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
   }
   
   .custom-cursor.clicking {
-    transform: scale(0.8);
     background-color: rgba(14, 165, 233, 0.3);
     border-color: rgba(14, 165, 233, 0.5);
   }
   
   .custom-cursor.hovering {
-    transform: scale(1.5);
     background-color: rgba(155, 135, 245, 0.25);
     border-color: rgba(155, 135, 245, 0.5);
   }
@@ -100,11 +95,9 @@
     pointer-events: none;
     border-radius: 50%;
     background-color: rgba(155, 135, 245, 0.2);
-    left: 0;
-    top: 0;
-    z-index: 99998; /* Increased z-index for trail elements */
-    display: block;
-    visibility: visible;
+    z-index: 99998;
+    transition: opacity 0.1s ease-out;
+    will-change: transform;
   }
 
   /* Text gradient */
@@ -176,3 +169,17 @@
     transform: translateY(0);
   }
 }
+
+/* Floating particles animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) rotate(240deg);
+  }
+}
+</keyframes>

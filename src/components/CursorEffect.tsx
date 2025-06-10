@@ -11,6 +11,7 @@ export default function CursorEffect() {
   const location = useLocation();
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const trailElementsRef = useRef<HTMLDivElement[]>([]);
+  const positionsRef = useRef<{ x: number; y: number }[]>([]);
   
   useEffect(() => {
     // Don't create cursor effects on mobile devices
@@ -23,12 +24,16 @@ export default function CursorEffect() {
     cursorRef.current = cursor;
 
     // Set initial position to center of viewport
-    cursor.style.left = `${window.innerWidth / 2 - 16}px`;
-    cursor.style.top = `${window.innerHeight / 2 - 16}px`;
+    const initialX = window.innerWidth / 2;
+    const initialY = window.innerHeight / 2;
+    setPosition({ x: initialX, y: initialY });
 
     // Trail effect
     const trailElements = [];
     const trailCount = 5;
+    
+    // Initialize positions array
+    positionsRef.current = Array(trailCount).fill({ x: initialX, y: initialY });
     
     for (let i = 0; i < trailCount; i++) {
       const trail = document.createElement("div");
@@ -43,28 +48,26 @@ export default function CursorEffect() {
     
     trailElementsRef.current = trailElements;
 
-    // Position history for trails
-    const positions = Array(trailCount).fill({ x: 0, y: 0 });
-
     const updateCursorPosition = (e: MouseEvent) => {
       const newPosition = { x: e.clientX, y: e.clientY };
       setPosition(newPosition);
       
-      // Update main cursor with proper positioning
+      // Update main cursor position immediately
       if (cursor && document.body.contains(cursor)) {
         cursor.style.left = `${e.clientX - 16}px`;
         cursor.style.top = `${e.clientY - 16}px`;
-        cursor.style.transform = `scale(${clicking ? 0.8 : hovering ? 1.5 : 1})`;
       }
       
-      // Update position history
-      positions.unshift(newPosition);
-      positions.pop();
+      // Update position history for trails
+      positionsRef.current.unshift(newPosition);
+      if (positionsRef.current.length > trailCount) {
+        positionsRef.current.pop();
+      }
       
-      // Update trail positions with explicit positioning
+      // Update trail positions
       trailElements.forEach((trail, index) => {
         if (trail && document.body.contains(trail)) {
-          const pos = positions[Math.min(index, positions.length - 1)];
+          const pos = positionsRef.current[Math.min(index, positionsRef.current.length - 1)];
           if (pos) {
             const size = 12 - index * 1.5;
             trail.style.left = `${pos.x - size}px`;
@@ -74,14 +77,24 @@ export default function CursorEffect() {
       });
     };
 
-    const handleMouseDown = () => {
+    const handleMouseDown = (e: MouseEvent) => {
       setClicking(true);
-      if (cursor) cursor.classList.add("clicking");
+      if (cursor) {
+        cursor.classList.add("clicking");
+        // Ensure cursor stays at mouse position during click
+        cursor.style.left = `${e.clientX - 16}px`;
+        cursor.style.top = `${e.clientY - 16}px`;
+      }
     };
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e: MouseEvent) => {
       setClicking(false);
-      if (cursor) cursor.classList.remove("clicking");
+      if (cursor) {
+        cursor.classList.remove("clicking");
+        // Ensure cursor position is correct after click
+        cursor.style.left = `${e.clientX - 16}px`;
+        cursor.style.top = `${e.clientY - 16}px`;
+      }
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
@@ -97,35 +110,6 @@ export default function CursorEffect() {
       setHovering(false);
       if (cursor) cursor.classList.remove("hovering");
     };
-
-    const forceVisibility = () => {
-      // Force cursor visibility after a brief delay to ensure DOM is ready
-      setTimeout(() => {
-        // Force an initial mousemove event to make the cursor visible
-        document.dispatchEvent(new MouseEvent('mousemove', {
-          clientX: window.innerWidth / 2,
-          clientY: window.innerHeight / 2
-        }));
-        
-        // Make sure the cursor is visible
-        if (cursor) {
-          cursor.style.display = 'block';
-          cursor.style.visibility = 'visible';
-          cursor.style.opacity = '1';
-        }
-        
-        // Make sure all trail elements are visible
-        trailElements.forEach(trail => {
-          if (trail) {
-            trail.style.display = 'block';
-            trail.style.visibility = 'visible';
-          }
-        });
-      }, 100);
-    };
-
-    // Force cursor visibility on page load and route changes
-    forceVisibility();
 
     // Add event listeners
     window.addEventListener("mousemove", updateCursorPosition);
@@ -155,39 +139,15 @@ export default function CursorEffect() {
         }
       });
     };
-  }, [clicking, hovering, isMobile]);
+  }, [isMobile]);
   
-  // Re-trigger cursor visibility when route changes
+  // Update cursor scale based on state changes
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile || !cursorRef.current) return;
     
-    const forceVisibility = () => {
-      setTimeout(() => {
-        // Dispatch another mousemove event when route changes
-        document.dispatchEvent(new MouseEvent('mousemove', {
-          clientX: window.innerWidth / 2,
-          clientY: window.innerHeight / 2
-        }));
-        
-        // Ensure cursor and trails are visible
-        if (cursorRef.current) {
-          cursorRef.current.style.display = 'block';
-          cursorRef.current.style.visibility = 'visible';
-          cursorRef.current.style.opacity = '1';
-        }
-        
-        trailElementsRef.current.forEach(trail => {
-          if (trail) {
-            trail.style.display = 'block';
-            trail.style.visibility = 'visible';
-          }
-        });
-      }, 100);
-    };
-    
-    forceVisibility();
-    
-  }, [location.pathname, isMobile]);
+    const scale = clicking ? 0.8 : hovering ? 1.5 : 1;
+    cursorRef.current.style.transform = `scale(${scale})`;
+  }, [clicking, hovering, isMobile]);
 
   return null;
 }
