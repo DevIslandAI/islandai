@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -47,15 +46,6 @@ export default function Footer() {
                   onClick={(e) => handleNavClick(e, 'home')}
                 >
                   Home
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#products" 
-                  className="text-gray-600 hover:text-islandai-purple transition-colors text-sm relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-islandai-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  onClick={(e) => handleNavClick(e, 'products')}
-                >
-                  Products
                 </a>
               </li>
               <li>

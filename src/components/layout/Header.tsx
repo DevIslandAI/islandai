@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,7 +10,6 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { name: "Home", href: "#home" },
-  { name: "Products", href: "#products" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
