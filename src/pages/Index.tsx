@@ -5,7 +5,6 @@ import HeroSection from "@/components/home/HeroSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
-import CursorEffect from "@/components/CursorEffect";
 
 const Index = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -90,7 +89,6 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <CursorEffect />
       <Header />
       
       {/* Scroll Progress Indicator */}
