@@ -27,6 +27,15 @@ const team: TeamMember[] = [
 ];
 
 export default function ContactSection() {
+  const handleSendMessage = () => {
+    const email = "support@islandai.co";
+    const subject = "General Inquiry";
+    const body = "Hello IslandAI team,%0D%0A%0D%0AI would like to inquire about your services.%0D%0A%0D%0AThank you!";
+    
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${body}`;
+    window.open(gmailUrl, '_blank');
+  };
+
   return (
     <section id="contact" className="py-20 relative">
       <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-islandai-blue/10 rounded-full blur-3xl"></div>
@@ -99,7 +108,10 @@ export default function ContactSection() {
               </div>
             </div>
             
-            <Button className="w-full bg-gradient-to-r from-islandai-purple to-islandai-blue text-white">
+            <Button 
+              onClick={handleSendMessage}
+              className="w-full bg-gradient-to-r from-islandai-purple to-islandai-blue text-white"
+            >
               Send Message
             </Button>
           </div>
