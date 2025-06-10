@@ -6,6 +6,7 @@ type TeamMember = {
   role: string;
   email: string;
   linkedin: string;
+  image: string;
 };
 
 const team: TeamMember[] = [
@@ -14,12 +15,14 @@ const team: TeamMember[] = [
     role: "COO",
     email: "ryan@islandai.co",
     linkedin: "https://www.linkedin.com/in/saulryan/",
+    image: "/lovable-uploads/0ea9c6ff-e796-472f-b9f8-7d1609e7e607.png",
   },
   {
     name: "Renveer",
     role: "CEO",
     email: "renveer@islandai.co",
     linkedin: "https://www.linkedin.com/in/renveer-ramsaha/",
+    image: "/lovable-uploads/b2b93af0-5746-4d64-8f06-b65a8543b426.png",
   },
 ];
 
@@ -42,8 +45,12 @@ export default function ContactSection() {
               key={index}
               className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-islandai-purple/10 to-islandai-blue/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-xl font-bold gradient-text">{member.name.charAt(0)}</span>
+              <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden">
+                <img 
+                  src={member.image} 
+                  alt={member.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-xl font-bold mb-1 text-center">{member.name}</h3>
               <p className="text-gray-500 text-center mb-4">{member.role}</p>
