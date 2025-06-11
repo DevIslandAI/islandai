@@ -21,7 +21,7 @@ const services: Service[] = [
     icon: <Bot className="w-12 h-12 text-islandai-blue" />
   },
   {
-    title: "AI Formation",
+    title: "AI Training",
     description: "Learn the art and science of AI through our comprehensive training programs. We teach individuals and teams how to leverage AI tools, create custom automations, and implement AI solutions in their workflows.",
     icon: <GraduationCap className="w-12 h-12 text-islandai-purple-dark" />
   }
